@@ -1,6 +1,10 @@
 * text=auto
 /.yarn/releases/** binary
 /.yarn/plugins/** binary
+/analysis/*.js -diff linguist-generated
+/analysis/*.txt -diff linguist-generated
+/deploy-doc/*.js -diff linguist-generated
+/deploy-doc/*.txt -diff linguist-generated
 /dist/*.js -diff linguist-generated
 /dist/*.txt -diff linguist-generated
 /dist/post/*.js -diff linguist-generated

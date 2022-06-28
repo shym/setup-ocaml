@@ -1,5 +1,6 @@
 /.pnp.*
 /.yarn/*
+/analysis/*
 /deploy-doc/*
 /dist/*
 /lint-doc/*
