@@ -3,9 +3,6 @@ name: Main workflow
 on:
   pull_request:
   push:
-  schedule:
-    # Prime the caches every Monday
-    - cron: 0 1 * * MON
 
 jobs:
   build:
@@ -13,21 +10,10 @@ jobs:
       fail-fast: false
       matrix:
         os:
-          - macos-latest
           - ubuntu-latest
           - windows-latest
         ocaml-compiler:
-          - 4.14.x
-        include:
-          - os: ubuntu-latest
-            ocaml-compiler: ocaml-variants.4.14.0+options,ocaml-option-32bit
-          - os: ubuntu-latest
-            ocaml-compiler: ocaml-variants.4.14.0+options,ocaml-option-flambda,ocaml-option-musl,ocaml-option-static
-          - os: ubuntu-latest
-            ocaml-compiler: ocaml-variants.4.12.0+domains
-            opam-repositories: |
-              multicore: https://github.com/ocaml-multicore/multicore-opam.git
-              default: https://github.com/ocaml/opam-repository.git
+          - ocaml.5.1.0
 
     runs-on: ${{ matrix.os }}
 
@@ -71,6 +57,17 @@ jobs:
         uses: ./
         with:
           ocaml-compiler: ${{ matrix.ocaml-compiler }}
-          opam-repositories: ${{ matrix.opam-repositories }}
+        if: runner.os == 'Linux'
+
+      - name: Use OCaml ${{ matrix.ocaml-compiler }}
+        uses: ./
+        with:
+          ocaml-compiler: ${{ matrix.ocaml-compiler }}
+          opam-repositories: |
+            dra27: https://github.com/dra27/opam-repository.git#windows-5.0
+            override: https://github.com/shym/custom-opam-repository.git#cyg
+            default: https://github.com/fdopen/opam-repository-mingw.git#opam2
+            upstream: https://github.com/ocaml/opam-repository.git
+        if: runner.os == 'Windows'
 
       - run: opam depext uri --install
