@@ -49,7 +49,7 @@ export async function installer(): Promise<void> {
   core.exportVariable("OPAMYES", 1);
   if (platform === Platform.Win32) {
     const opamRoot = path.join("D:", ".opam");
-    core.exportVariable("OPAMROOT", opamRoot);
+    core.exportVariable("OPAMROOT", "/cygdrive/d/.opam");
   }
   if (platform === Platform.Win32) {
     core.startGroup("Change the file system behavior parameters");
