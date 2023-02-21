@@ -178,20 +178,7 @@ async function setupCygwin() {
   }
   const site = "https://mirrors.kernel.org/sourceware/cygwin";
   const packages = [
-    "curl",
-    "diffutils",
-    "git",
-    "m4",
-    "make",
-    "mercurial",
-    "mingw64-i686-gcc-core",
-    "mingw64-i686-gcc-g++",
-    "mingw64-x86_64-gcc-core",
-    "mingw64-x86_64-gcc-g++",
-    "patch",
-    "perl",
-    "rsync",
-    "unzip",
+    "opam",
   ].join(",");
   await exec("setup-x86_64.exe", [
     "--quiet-mode",
@@ -208,22 +195,7 @@ async function setupCygwin() {
 }
 
 async function acquireOpamWindows() {
-  const opamVersion = "0.0.0.2";
-  const cachedPath = tc.find("opam", opamVersion);
-  if (cachedPath === "") {
-    const downloadedPath = await tc.downloadTool(
-      `https://github.com/fdopen/opam-repository-mingw/releases/download/${opamVersion}/opam64.zip`
-    );
-    const extractedPath = await tc.extractZip(downloadedPath);
-    const cachedPath = await tc.cacheDir(extractedPath, "opam", opamVersion);
-    const installSh = path.join(cachedPath, "opam64", "install.sh");
-    await fs.chmod(installSh, 0o755);
-    await exec("bash", [installSh, "--prefix", "/usr"]);
-  } else {
-    const installSh = path.join(cachedPath, "opam64", "install.sh");
-    await fs.chmod(installSh, 0o755);
-    await exec("bash", [installSh, "--prefix", "/usr"]);
-  }
+  /* Taken care of by Cygwin */
 }
 
 async function initializeOpamWindows() {
