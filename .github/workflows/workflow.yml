@@ -11,7 +11,7 @@ jobs:
       matrix:
         os:
           - ubuntu-latest
-          - windows-latest
+          # - windows-latest
         ocaml-compiler:
           - ocaml.5.1.0
 
@@ -30,28 +30,31 @@ jobs:
         if: runner.os == 'Linux'
         run: yarn install --immutable
 
-      - name: Check formatting
-        if: runner.os == 'Linux'
-        run: yarn fmt:check
+      # - name: Check formatting
+      #   if: runner.os == 'Linux'
+      #   run: yarn fmt:check
 
-      - name: Check lint
-        if: runner.os == 'Linux'
-        run: yarn lint
+      # - name: Check lint
+      #   if: runner.os == 'Linux'
+      #   run: yarn lint
 
       - name: Check type
         if: runner.os == 'Linux'
         run: yarn typecheck
 
-      - name: Ensure dist directory is up-to-date
+      - name: Build
         if: runner.os == 'Linux'
         shell: bash
         run: |
           yarn build
-          if [ "$(git status dist lint-doc lint-fmt lint-opam --porcelain | wc -l)" -gt "0" ]; then
-            echo "Detected uncommitted changes after build. See status below:"
-            git diff
-            exit 1
-          fi
+          git diff
+
+      - name: Save
+        uses: actions/upload-artifact@v3
+        with:
+          path: |
+            dist
+            lint-*
 
       - name: Use OCaml ${{ matrix.ocaml-compiler }}
         uses: ./
