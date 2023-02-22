@@ -76,6 +76,6 @@ jobs:
       - name: List content of everything, to understand the state
         if: always()
         run: |
-          D:\cygwin\bin\find.exe / -ls
+          D:\cygwin\bin\find.exe /cygdrive/d -ls
 
       - run: opam depext uri --install
