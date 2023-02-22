@@ -79,11 +79,13 @@ jobs:
           echo Root
           D:\cygwin\bin\ls.exe -al /
           echo Drives
-          D:\cygwin\bin\ls.exe -al /cygdrive
+          D:\cygwin\bin\ls.exe -al /cygdrive/c / /cygdrive/d
           echo bin
-          D:\cygwin\bin\ls.exe -al /bin /usr/bin
+          D:\cygwin\bin\ls.exe -al /bin
           echo Git
           D:\cygwin\bin\ls.exe -al "/cygdrive/c/Program Files/Git/bin"
+          echo Git Usr
+          D:\cygwin\bin\ls.exe -al "/cygdrive/c/Program Files/Git/usr/bin"
           echo PATH
           echo ${env:PATH}
 
