@@ -16,11 +16,11 @@ export const enum Platform {
   Win32 = "win32",
 }
 
-export const CYGWIN_ROOT = path.join("D:", "cygwin");
+export const CYGWIN_ROOT = "/";
 
-export const CYGWIN_ROOT_BIN = path.join(CYGWIN_ROOT, "bin");
+export const CYGWIN_ROOT_BIN = "/bin";
 
-export const CYGWIN_ROOT_WRAPPERBIN = path.join(CYGWIN_ROOT, "wrapperbin");
+export const CYGWIN_ROOT_WRAPPERBIN = "/wrapperbin";
 
 export const CACHE_PREFIX = core.getInput("cache-prefix", {
   required: false,

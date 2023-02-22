@@ -178,7 +178,18 @@ async function setupCygwin() {
   }
   const site = "https://mirrors.kernel.org/sourceware/cygwin";
   const packages = [
+    "curl",
+    "coreutils",
+    "diffutils",
+    "findutils",
+    "git",
+    "m4",
+    "make",
     "opam",
+    "patch",
+    "perl",
+    "rsync",
+    "unzip",
   ].join(",");
   await exec("setup-x86_64.exe", [
     "--quiet-mode",
@@ -207,15 +218,15 @@ async function initializeOpamWindows() {
     "--disable-sandboxing",
     "--enable-shell-hook",
   ]);
-  await io.mkdirP(CYGWIN_ROOT_WRAPPERBIN);
-  const opamCmd = path.join(CYGWIN_ROOT_WRAPPERBIN, "opam.cmd");
-  const data = [
-    "@setlocal",
-    "@echo off",
-    "set PATH=%CYGWIN_ROOT_BIN%;%PATH%",
-    "ocaml-env exec -- opam.exe %*",
-  ].join(os.EOL);
-  await fs.writeFile(opamCmd, data, { mode: 0o755 });
+  // await io.mkdirP(CYGWIN_ROOT_WRAPPERBIN);
+  // const opamCmd = path.join(CYGWIN_ROOT_WRAPPERBIN, "opam.cmd");
+  // const data = [
+  //   "@setlocal",
+  //   "@echo off",
+  //   "set PATH=%CYGWIN_ROOT_BIN%;%PATH%",
+  //   "ocaml-env exec -- opam.exe %*",
+  // ].join(os.EOL);
+  // await fs.writeFile(opamCmd, data, { mode: 0o755 });
 }
 
 async function setupOpamWindows() {
