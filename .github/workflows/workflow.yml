@@ -10,7 +10,7 @@ jobs:
       fail-fast: false
       matrix:
         os:
-          - ubuntu-latest
+          #- ubuntu-latest
           - windows-latest
         ocaml-compiler:
           - ocaml.5.1.0
@@ -76,6 +76,6 @@ jobs:
       - name: List content of everything, to understand the state
         if: always()
         run: |
-          find /
+          D:\cygwin\bin\find.exe / -ls
 
       - run: opam depext uri --install
