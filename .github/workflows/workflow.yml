@@ -62,6 +62,11 @@ jobs:
       #     ocaml-compiler: ${{ matrix.ocaml-compiler }}
       #   if: runner.os == 'Linux'
 
+      - name: PATH
+        shell: bash
+        run: |
+          echo "PATH=/cygdrive/d/cygwin:/d/cygwin:$PATH" >> $GITHUB_ENV
+
       - name: Use OCaml ${{ matrix.ocaml-compiler }}
         uses: ./
         with:
