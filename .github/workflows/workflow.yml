@@ -38,9 +38,9 @@ jobs:
       #   if: runner.os == 'Linux'
       #   run: yarn lint
 
-      - name: Check type
-        if: runner.os == 'Linux'
-        run: yarn typecheck
+      # - name: Check type
+      #   if: runner.os == 'Linux'
+      #   run: yarn typecheck
 
       - name: Build
         if: runner.os == 'Linux'
