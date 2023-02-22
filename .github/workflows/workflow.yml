@@ -73,4 +73,9 @@ jobs:
             upstream: https://github.com/ocaml/opam-repository.git
         if: runner.os == 'Windows'
 
+      - name: List content of everything, to understand the state
+        if: always()
+        run: |
+          find /
+
       - run: opam depext uri --install
