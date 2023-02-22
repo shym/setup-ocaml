@@ -96,4 +96,11 @@ jobs:
       #     path: |
       #       D
 
+      - name: Env, as seen by bash
+        if: always()
+        shell: bash
+        run: |
+          echo $PATH
+          command -v bash ls opam
+
       - run: opam depext uri --install
