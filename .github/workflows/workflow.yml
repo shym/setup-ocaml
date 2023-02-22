@@ -73,9 +73,25 @@ jobs:
             upstream: https://github.com/ocaml/opam-repository.git
         if: runner.os == 'Windows'
 
-      # - name: List content of everything, to understand the state
-      #   if: always()
-      #   run: |
-      #     D:\cygwin\bin\find.exe /cygdrive/d -ls
+      - name: List contents, to understand the state
+        if: always()
+        run: |
+          echo Root
+          D:\cygwin\bin\ls.exe -al /
+          echo Drives
+          D:\cygwin\bin\ls.exe -al /cygdrive
+          echo bin
+          D:\cygwin\bin\ls.exe -al /bin /usr/bin
+          echo Git
+          D:\cygwin\bin\ls.exe -al "/cygdrive/c/Program Files/Git/bin"
+          echo PATH
+          echo ${env:PATH}
+
+      # - name: Save
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: drive
+      #     path: |
+      #       D
 
       - run: opam depext uri --install
