@@ -10,8 +10,8 @@ jobs:
       fail-fast: false
       matrix:
         os:
-          - ubuntu-latest
-          # - windows-latest
+          # - ubuntu-latest
+          - windows-latest
         ocaml-compiler:
           - ocaml.5.1.0
 
@@ -42,19 +42,19 @@ jobs:
       #   if: runner.os == 'Linux'
       #   run: yarn typecheck
 
-      - name: Build
-        if: runner.os == 'Linux'
-        shell: bash
-        run: |
-          yarn build
-          git diff
+      # - name: Build
+      #   if: runner.os == 'Linux'
+      #   shell: bash
+      #   run: |
+      #     yarn build
+      #     git diff
 
-      - name: Save
-        uses: actions/upload-artifact@v3
-        with:
-          path: |
-            dist
-            lint-*
+      # - name: Save
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     path: |
+      #       dist
+      #       lint-*
 
       # - name: Use OCaml ${{ matrix.ocaml-compiler }}
       #   uses: ./
@@ -62,20 +62,20 @@ jobs:
       #     ocaml-compiler: ${{ matrix.ocaml-compiler }}
       #   if: runner.os == 'Linux'
 
-      # - name: Use OCaml ${{ matrix.ocaml-compiler }}
-      #   uses: ./
-      #   with:
-      #     ocaml-compiler: ${{ matrix.ocaml-compiler }}
-      #     opam-repositories: |
-      #       dra27: https://github.com/dra27/opam-repository.git#windows-5.0
-      #       override: https://github.com/shym/custom-opam-repository.git#cyg
-      #       default: https://github.com/fdopen/opam-repository-mingw.git#opam2
-      #       upstream: https://github.com/ocaml/opam-repository.git
-      #   if: runner.os == 'Windows'
+      - name: Use OCaml ${{ matrix.ocaml-compiler }}
+        uses: ./
+        with:
+          ocaml-compiler: ${{ matrix.ocaml-compiler }}
+          opam-repositories: |
+            dra27: https://github.com/dra27/opam-repository.git#windows-5.0
+            override: https://github.com/shym/custom-opam-repository.git#cyg
+            default: https://github.com/fdopen/opam-repository-mingw.git#opam2
+            upstream: https://github.com/ocaml/opam-repository.git
+        if: runner.os == 'Windows'
 
       # - name: List content of everything, to understand the state
       #   if: always()
       #   run: |
       #     D:\cygwin\bin\find.exe /cygdrive/d -ls
 
-#       - run: opam depext uri --install
+      - run: opam depext uri --install
