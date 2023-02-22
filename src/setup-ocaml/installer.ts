@@ -1,5 +1,4 @@
 import * as os from "node:os";
-import * as path from "node:path";
 import * as process from "node:process";
 
 import * as core from "@actions/core";
@@ -48,7 +47,6 @@ export async function installer(): Promise<void> {
   core.exportVariable("OPAMVERBOSE", isDebug);
   core.exportVariable("OPAMYES", 1);
   if (platform === Platform.Win32) {
-    const opamRoot = path.join("D:", ".opam");
     core.exportVariable("OPAMROOT", "/cygdrive/d/.opam");
   }
   if (platform === Platform.Win32) {
